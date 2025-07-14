@@ -1,0 +1,221 @@
+cvp_configlets:
+  DC1-AVD_LEAF1: "!\nno enable password\nno aaa root\n!\nusername admin privilege
+    15 role network-admin secret sha512 $6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1\nusername
+    ansible privilege 15 role network-admin secret sha512 $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.\n!\ndaemon
+    TerminAttr\n   exec /usr/bin/TerminAttr -cvaddr=10.1.1.10:9910 -cvauth=token,/tmp/token
+    -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname
+    LEAF1\nip name-server vrf MGMT 10.10.10.1\n!\nspanning-tree mode mstp\nno spanning-tree
+    vlan-id 4094\nspanning-tree mst 0 priority 16384\n!\nvlan 10\n   name BLUE-NET\n!\nvlan
+    20\n   name GREEN-NET\n!\nvlan 4094\n   name MLAG\n   trunk group MLAG\n!\nvrf
+    instance MGMT\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
+    \  !\n   vrf MGMT\n      no shutdown\n!\ninterface Port-Channel1\n   description
+    L2_SPINES_Port-Channel1\n   no shutdown\n   switchport trunk allowed vlan 10,20\n
+    \  switchport mode trunk\n   switchport\n   mlag 1\n!\ninterface Port-Channel7\n
+    \  description MLAG_LEAF2_Port-Channel7\n   no shutdown\n   switchport mode trunk\n
+    \  switchport trunk group MLAG\n   switchport\n!\ninterface Ethernet1\n   description
+    L2_SPINE1_Ethernet1\n   no shutdown\n   channel-group 1 mode active\n!\ninterface
+    Ethernet2\n   description L2_SPINE2_Ethernet1\n   no shutdown\n   channel-group
+    1 mode active\n!\ninterface Ethernet3\n   description SERVER_HostA_Eth1\n   no
+    shutdown\n   switchport access vlan 10\n   switchport mode access\n   switchport\n
+    \  spanning-tree portfast\n!\ninterface Ethernet7\n   description MLAG_LEAF2_Ethernet7\n
+    \  no shutdown\n   channel-group 7 mode active\n!\ninterface Ethernet8\n   description
+    MLAG_LEAF2_Ethernet8\n   no shutdown\n   channel-group 7 mode active\n!\ninterface
+    Management1\n   description OOB_MANAGEMENT\n   no shutdown\n   vrf MGMT\n   ip
+    address 10.10.10.111/24\n!\ninterface Vlan4094\n   description MLAG\n   no shutdown\n
+    \  mtu 1500\n   no autostate\n   ip address 192.168.200.0/31\nno ip routing vrf
+    MGMT\n!\nmlag configuration\n   domain-id RACK1\n   local-interface Vlan4094\n
+    \  peer-address 192.168.200.1\n   peer-link Port-Channel7\n   reload-delay mlag
+    300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 10.10.10.1\n!\nntp
+    local-interface vrf MGMT Management1\nntp server vrf MGMT 0.fr.pool.ntp.org prefer\nntp
+    server vrf MGMT 1.fr.pool.ntp.org\n!\nend\n"
+  DC1-AVD_LEAF2: "!\nno enable password\nno aaa root\n!\nusername admin privilege
+    15 role network-admin secret sha512 $6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1\nusername
+    ansible privilege 15 role network-admin secret sha512 $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.\n!\ndaemon
+    TerminAttr\n   exec /usr/bin/TerminAttr -cvaddr=10.1.1.10:9910 -cvauth=token,/tmp/token
+    -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname
+    LEAF2\nip name-server vrf MGMT 10.10.10.1\n!\nspanning-tree mode mstp\nno spanning-tree
+    vlan-id 4094\nspanning-tree mst 0 priority 16384\n!\nvlan 10\n   name BLUE-NET\n!\nvlan
+    20\n   name GREEN-NET\n!\nvlan 4094\n   name MLAG\n   trunk group MLAG\n!\nvrf
+    instance MGMT\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
+    \  !\n   vrf MGMT\n      no shutdown\n!\ninterface Port-Channel1\n   description
+    L2_SPINES_Port-Channel1\n   no shutdown\n   switchport trunk allowed vlan 10,20\n
+    \  switchport mode trunk\n   switchport\n   mlag 1\n!\ninterface Port-Channel7\n
+    \  description MLAG_LEAF1_Port-Channel7\n   no shutdown\n   switchport mode trunk\n
+    \  switchport trunk group MLAG\n   switchport\n!\ninterface Ethernet1\n   description
+    L2_SPINE1_Ethernet2\n   no shutdown\n   channel-group 1 mode active\n!\ninterface
+    Ethernet2\n   description L2_SPINE2_Ethernet2\n   no shutdown\n   channel-group
+    1 mode active\n!\ninterface Ethernet3\n   description SERVER_HostB_Eth1\n   no
+    shutdown\n   switchport access vlan 20\n   switchport mode access\n   switchport\n
+    \  spanning-tree portfast\n!\ninterface Ethernet7\n   description MLAG_LEAF1_Ethernet7\n
+    \  no shutdown\n   channel-group 7 mode active\n!\ninterface Ethernet8\n   description
+    MLAG_LEAF1_Ethernet8\n   no shutdown\n   channel-group 7 mode active\n!\ninterface
+    Management1\n   description OOB_MANAGEMENT\n   no shutdown\n   vrf MGMT\n   ip
+    address 10.10.10.112/24\n!\ninterface Vlan4094\n   description MLAG\n   no shutdown\n
+    \  mtu 1500\n   no autostate\n   ip address 192.168.200.1/31\nno ip routing vrf
+    MGMT\n!\nmlag configuration\n   domain-id RACK1\n   local-interface Vlan4094\n
+    \  peer-address 192.168.200.0\n   peer-link Port-Channel7\n   reload-delay mlag
+    300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 10.10.10.1\n!\nntp
+    local-interface vrf MGMT Management1\nntp server vrf MGMT 0.fr.pool.ntp.org prefer\nntp
+    server vrf MGMT 1.fr.pool.ntp.org\n!\nend\n"
+  DC1-AVD_LEAF3: "!\nno enable password\nno aaa root\n!\nusername admin privilege
+    15 role network-admin secret sha512 $6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1\nusername
+    ansible privilege 15 role network-admin secret sha512 $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.\n!\ndaemon
+    TerminAttr\n   exec /usr/bin/TerminAttr -cvaddr=10.1.1.10:9910 -cvauth=token,/tmp/token
+    -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname
+    LEAF3\nip name-server vrf MGMT 10.10.10.1\n!\nspanning-tree mode mstp\nno spanning-tree
+    vlan-id 4094\nspanning-tree mst 0 priority 16384\n!\nvlan 10\n   name BLUE-NET\n!\nvlan
+    30\n   name ORANGE-NET\n!\nvlan 4094\n   name MLAG\n   trunk group MLAG\n!\nvrf
+    instance MGMT\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
+    \  !\n   vrf MGMT\n      no shutdown\n!\ninterface Port-Channel1\n   description
+    L2_SPINES_Port-Channel3\n   no shutdown\n   switchport trunk allowed vlan 10,30\n
+    \  switchport mode trunk\n   switchport\n   mlag 1\n!\ninterface Port-Channel7\n
+    \  description MLAG_LEAF4_Port-Channel7\n   no shutdown\n   switchport mode trunk\n
+    \  switchport trunk group MLAG\n   switchport\n!\ninterface Ethernet1\n   description
+    L2_SPINE1_Ethernet3\n   no shutdown\n   channel-group 1 mode active\n!\ninterface
+    Ethernet2\n   description L2_SPINE2_Ethernet3\n   no shutdown\n   channel-group
+    1 mode active\n!\ninterface Ethernet3\n   description SERVER_HostC_Eth1\n   no
+    shutdown\n   switchport access vlan 10\n   switchport mode access\n   switchport\n
+    \  spanning-tree portfast\n!\ninterface Ethernet7\n   description MLAG_LEAF4_Ethernet7\n
+    \  no shutdown\n   channel-group 7 mode active\n!\ninterface Ethernet8\n   description
+    MLAG_LEAF4_Ethernet8\n   no shutdown\n   channel-group 7 mode active\n!\ninterface
+    Management1\n   description OOB_MANAGEMENT\n   no shutdown\n   vrf MGMT\n   ip
+    address 10.10.10.113/24\n!\ninterface Vlan4094\n   description MLAG\n   no shutdown\n
+    \  mtu 1500\n   no autostate\n   ip address 192.168.200.4/31\nno ip routing vrf
+    MGMT\n!\nmlag configuration\n   domain-id RACK2\n   local-interface Vlan4094\n
+    \  peer-address 192.168.200.5\n   peer-link Port-Channel7\n   reload-delay mlag
+    300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 10.10.10.1\n!\nntp
+    local-interface vrf MGMT Management1\nntp server vrf MGMT 0.fr.pool.ntp.org prefer\nntp
+    server vrf MGMT 1.fr.pool.ntp.org\n!\nend\n"
+  DC1-AVD_LEAF4: "!\nno enable password\nno aaa root\n!\nusername admin privilege
+    15 role network-admin secret sha512 $6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1\nusername
+    ansible privilege 15 role network-admin secret sha512 $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.\n!\ndaemon
+    TerminAttr\n   exec /usr/bin/TerminAttr -cvaddr=10.1.1.10:9910 -cvauth=token,/tmp/token
+    -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname
+    LEAF4\nip name-server vrf MGMT 10.10.10.1\n!\nspanning-tree mode mstp\nno spanning-tree
+    vlan-id 4094\nspanning-tree mst 0 priority 16384\n!\nvlan 10\n   name BLUE-NET\n!\nvlan
+    30\n   name ORANGE-NET\n!\nvlan 4094\n   name MLAG\n   trunk group MLAG\n!\nvrf
+    instance MGMT\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n
+    \  !\n   vrf MGMT\n      no shutdown\n!\ninterface Port-Channel1\n   description
+    L2_SPINES_Port-Channel3\n   no shutdown\n   switchport trunk allowed vlan 10,30\n
+    \  switchport mode trunk\n   switchport\n   mlag 1\n!\ninterface Port-Channel7\n
+    \  description MLAG_LEAF3_Port-Channel7\n   no shutdown\n   switchport mode trunk\n
+    \  switchport trunk group MLAG\n   switchport\n!\ninterface Ethernet1\n   description
+    L2_SPINE1_Ethernet4\n   no shutdown\n   channel-group 1 mode active\n!\ninterface
+    Ethernet2\n   description L2_SPINE2_Ethernet4\n   no shutdown\n   channel-group
+    1 mode active\n!\ninterface Ethernet3\n   description SERVER_Host2_Eth1\n   no
+    shutdown\n   switchport access vlan 30\n   switchport mode access\n   switchport\n
+    \  spanning-tree portfast\n!\ninterface Ethernet7\n   description MLAG_LEAF3_Ethernet7\n
+    \  no shutdown\n   channel-group 7 mode active\n!\ninterface Ethernet8\n   description
+    MLAG_LEAF3_Ethernet8\n   no shutdown\n   channel-group 7 mode active\n!\ninterface
+    Management1\n   description OOB_MANAGEMENT\n   no shutdown\n   vrf MGMT\n   ip
+    address 10.10.10.114/24\n!\ninterface Vlan4094\n   description MLAG\n   no shutdown\n
+    \  mtu 1500\n   no autostate\n   ip address 192.168.200.5/31\nno ip routing vrf
+    MGMT\n!\nmlag configuration\n   domain-id RACK2\n   local-interface Vlan4094\n
+    \  peer-address 192.168.200.4\n   peer-link Port-Channel7\n   reload-delay mlag
+    300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 10.10.10.1\n!\nntp
+    local-interface vrf MGMT Management1\nntp server vrf MGMT 0.fr.pool.ntp.org prefer\nntp
+    server vrf MGMT 1.fr.pool.ntp.org\n!\nend\n"
+  DC1-AVD_SPINE1: "!\nno enable password\nno aaa root\n!\nusername admin privilege
+    15 role network-admin secret sha512 $6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1\nusername
+    ansible privilege 15 role network-admin secret sha512 $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.\n!\ndaemon
+    TerminAttr\n   exec /usr/bin/TerminAttr -cvaddr=10.1.1.10:9910 -cvauth=token,/tmp/token
+    -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname
+    SPINE1\nip name-server vrf MGMT 10.10.10.1\n!\nspanning-tree mode mstp\nno spanning-tree
+    vlan-id 4094\nspanning-tree mst 0 priority 4096\n!\nvlan 10\n   name BLUE-NET\n!\nvlan
+    20\n   name GREEN-NET\n!\nvlan 30\n   name ORANGE-NET\n!\nvlan 4094\n   name MLAG\n
+    \  trunk group MLAG\n!\nvrf instance MGMT\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\ninterface Port-Channel1\n
+    \  description L2_RACK1_Port-Channel1\n   no shutdown\n   switchport trunk allowed
+    vlan 10,20\n   switchport mode trunk\n   switchport\n   mlag 1\n!\ninterface Port-Channel3\n
+    \  description L2_RACK2_Port-Channel1\n   no shutdown\n   switchport trunk allowed
+    vlan 10,30\n   switchport mode trunk\n   switchport\n   mlag 3\n!\ninterface Port-Channel5\n
+    \  description FIREWALL_FIREWALL\n   no shutdown\n   switchport trunk allowed
+    vlan 10,20,30\n   switchport mode trunk\n   switchport\n   mlag 5\n!\ninterface
+    Port-Channel7\n   description MLAG_SPINE2_Port-Channel7\n   no shutdown\n   switchport
+    mode trunk\n   switchport trunk group MLAG\n   switchport\n!\ninterface Ethernet1\n
+    \  description L2_LEAF1_Ethernet1\n   no shutdown\n   channel-group 1 mode active\n!\ninterface
+    Ethernet2\n   description L2_LEAF2_Ethernet1\n   no shutdown\n   channel-group
+    1 mode active\n!\ninterface Ethernet3\n   description L2_LEAF3_Ethernet1\n   no
+    shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet4\n   description
+    L2_LEAF4_Ethernet1\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet5\n   description FIREWALL_FIREWALL_Eth1\n   no shutdown\n   channel-group
+    5 mode active\n!\ninterface Ethernet7\n   description MLAG_SPINE2_Ethernet7\n
+    \  no shutdown\n   channel-group 7 mode active\n!\ninterface Ethernet8\n   description
+    MLAG_SPINE2_Ethernet8\n   no shutdown\n   channel-group 7 mode active\n!\ninterface
+    Management1\n   description OOB_MANAGEMENT\n   no shutdown\n   vrf MGMT\n   ip
+    address 10.10.10.101/24\n!\ninterface Vlan4094\n   description MLAG\n   no shutdown\n
+    \  mtu 1500\n   no autostate\n   ip address 192.168.100.0/31\nno ip routing vrf
+    MGMT\n!\nmlag configuration\n   domain-id SPINES\n   local-interface Vlan4094\n
+    \  peer-address 192.168.100.1\n   peer-link Port-Channel7\n   reload-delay mlag
+    300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 10.10.10.1\n!\nntp
+    local-interface vrf MGMT Management1\nntp server vrf MGMT 0.fr.pool.ntp.org prefer\nntp
+    server vrf MGMT 1.fr.pool.ntp.org\n!\nend\n"
+  DC1-AVD_SPINE2: "!\nno enable password\nno aaa root\n!\nusername admin privilege
+    15 role network-admin secret sha512 $6$Df86J4/SFMDE3/1K$Hef4KstdoxNDaami37cBquTWOTplC.miMPjXVgQxMe92.e5wxlnXOLlebgPj8Fz1KO0za/RCO7ZIs4Q6Eiq1g1\nusername
+    ansible privilege 15 role network-admin secret sha512 $6$Dzu11L7yp9j3nCM9$FSptxMPyIL555OMO.ldnjDXgwZmrfMYwHSr0uznE5Qoqvd9a6UdjiFcJUhGLtvXVZR1r.A/iF5aAt50hf/EK4/\nusername
+    cvpadmin privilege 15 role network-admin secret sha512 $6$rZKcbIZ7iWGAWTUM$TCgDn1KcavS0s.OV8lacMTUkxTByfzcGlFlYUWroxYuU7M/9bIodhRO7nXGzMweUxvbk8mJmQl8Bh44cRktUj.\n!\ndaemon
+    TerminAttr\n   exec /usr/bin/TerminAttr -cvaddr=10.1.1.10:9910 -cvauth=token,/tmp/token
+    -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+    -taillogs\n   no shutdown\n!\nvlan internal order ascending range 1006 1199\n!\ntransceiver
+    qsfp default-mode 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname
+    SPINE2\nip name-server vrf MGMT 10.10.10.1\n!\nspanning-tree mode mstp\nno spanning-tree
+    vlan-id 4094\nspanning-tree mst 0 priority 4096\n!\nvlan 10\n   name BLUE-NET\n!\nvlan
+    20\n   name GREEN-NET\n!\nvlan 30\n   name ORANGE-NET\n!\nvlan 4094\n   name MLAG\n
+    \  trunk group MLAG\n!\nvrf instance MGMT\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\ninterface Port-Channel1\n
+    \  description L2_RACK1_Port-Channel1\n   no shutdown\n   switchport trunk allowed
+    vlan 10,20\n   switchport mode trunk\n   switchport\n   mlag 1\n!\ninterface Port-Channel3\n
+    \  description L2_RACK2_Port-Channel1\n   no shutdown\n   switchport trunk allowed
+    vlan 10,30\n   switchport mode trunk\n   switchport\n   mlag 3\n!\ninterface Port-Channel5\n
+    \  description FIREWALL_FIREWALL\n   no shutdown\n   switchport trunk allowed
+    vlan 10,20,30\n   switchport mode trunk\n   switchport\n   mlag 5\n!\ninterface
+    Port-Channel7\n   description MLAG_SPINE1_Port-Channel7\n   no shutdown\n   switchport
+    mode trunk\n   switchport trunk group MLAG\n   switchport\n!\ninterface Ethernet1\n
+    \  description L2_LEAF1_Ethernet2\n   no shutdown\n   channel-group 1 mode active\n!\ninterface
+    Ethernet2\n   description L2_LEAF2_Ethernet2\n   no shutdown\n   channel-group
+    1 mode active\n!\ninterface Ethernet3\n   description L2_LEAF3_Ethernet2\n   no
+    shutdown\n   channel-group 3 mode active\n!\ninterface Ethernet4\n   description
+    L2_LEAF4_Ethernet2\n   no shutdown\n   channel-group 3 mode active\n!\ninterface
+    Ethernet5\n   description FIREWALL_FIREWALL_Eth2\n   no shutdown\n   channel-group
+    5 mode active\n!\ninterface Ethernet7\n   description MLAG_SPINE1_Ethernet7\n
+    \  no shutdown\n   channel-group 7 mode active\n!\ninterface Ethernet8\n   description
+    MLAG_SPINE1_Ethernet8\n   no shutdown\n   channel-group 7 mode active\n!\ninterface
+    Management1\n   description OOB_MANAGEMENT\n   no shutdown\n   vrf MGMT\n   ip
+    address 10.10.10.102/24\n!\ninterface Vlan4094\n   description MLAG\n   no shutdown\n
+    \  mtu 1500\n   no autostate\n   ip address 192.168.100.1/31\nno ip routing vrf
+    MGMT\n!\nmlag configuration\n   domain-id SPINES\n   local-interface Vlan4094\n
+    \  peer-address 192.168.100.0\n   peer-link Port-Channel7\n   reload-delay mlag
+    300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 10.10.10.1\n!\nntp
+    local-interface vrf MGMT Management1\nntp server vrf MGMT 0.fr.pool.ntp.org prefer\nntp
+    server vrf MGMT 1.fr.pool.ntp.org\n!\nend\n"
+cvp_topology:
+  DC1_FABRIC:
+    devices: []
+    parent_container: Tenant
+  DC1_LEAFS:
+    devices:
+    - LEAF1
+    - LEAF2
+    - LEAF3
+    - LEAF4
+    parent_container: DC1_FABRIC
+  DC1_SPINES:
+    devices:
+    - SPINE1
+    - SPINE2
+    parent_container: DC1_FABRIC
